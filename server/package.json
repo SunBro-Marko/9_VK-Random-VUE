@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Serever for random VK lottery",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js"
+  },
+  "keywords": [
+    "vk",
+    "random",
+    "gift"
+  ],
+  "author": "Mikhail Alenin <sunbro.marko@yandex.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cross-fetch": "^3.0.5",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
+  }
+}
