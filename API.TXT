@@ -1,0 +1,22 @@
+API
+
+1. APP,  request / => react app (working)
+/?auth=true
+/?auth=false - feature))
+
+2. VK AUTH:
+- request /api/auth 
+- parameters=uid:string
+- response=
+=> авторизован { status = 'data', data = {} }
+=> не авторизован { status = 'redirect', url = '' }
+
+3. VK RAFFLE:
+- request /api/raffle 
+- parameters={uid, parameters}
+- response={status, data}
+
+4. VK GETVKPOST
+- request /api/getvkpost 
+- parameters={uid, url}
+- response={status, data}

@@ -28,9 +28,14 @@ const getUserData = (user) => {
 	return appUsers[user.id];
 }
 
+const getUserToken = (uid)=>{	
+	return appUsers[uid].vk_access_token
+}
+
 
 module.exports = {
 	load,
 	save,
-	getUserData
+	getUserData,
+	getUserToken
 }

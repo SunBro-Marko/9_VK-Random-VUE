@@ -4,15 +4,13 @@ const path = require('path');
 const fs = require("fs")
 const axios = require('axios')
 const database = require('./database');
+const vk=require('./src/vk-api')
 
 const port=80
 
 const client_id = 7554191
 const client_secret = 'DCYdzqPteiEvnUOJrFEs'
 
-var users = {}
-
-var users = {}
 
 app.listen(port, function () {
   console.log("Example app listening on port 80!");
@@ -25,13 +23,13 @@ app.get("/", function (req, res) {
 
 
 app.use("/authorize", function (req, res) {
-  res.redirect("https://oauth.vk.com/authorize?client_id=7554191&display=page&revoke=1&redirect_uri=http://sunbro.ru/vk/token&scope=stats&state="+req.query.id+"&response_type=code&v=5.120")
+  res.redirect("https://oauth.vk.com/authorize?client_id=7554191&display=popup&revoke=1&redirect_uri=http:///api/getvktoken&scope=stats&state="+req.query.id+"&response_type=code&v=5.120")
 })
 
-app.get("/vk/token", function (req, res) {
-    res.sendFile(__dirname+ "/index.html")
+app.get("/api/getvktoken", function (req, res) {
+    res.redirect("http://sunbro.ru?auth=true")
     console.log("code:"+req.query.code + " state:" + req.query.state);
-    let url = "https://oauth.vk.com/access_token?client_id="+client_id+"&client_secret="+client_secret+"&redirect_uri=http://sunbro.ru/vk/token&code=" + req.query.code
+    let url = "https://oauth.vk.com/access_token?client_id="+client_id+"&client_secret="+client_secret+"&redirect_uri=http://sunbro.ru/api/getvktoken&code=" + req.query.code
     console.log(url);
     axios.get(url)
   .then((response) => {
@@ -48,6 +46,33 @@ app.get("/vk/token", function (req, res) {
   
 })
 
+//http://sunbro.ru/api/getvkpost?uid=sunbromarko&url=https://vk.com/boroda4_gaming?w=wall-129804174_122028
+
+//https://vk.com/boroda4_gaming?w=wall-129804174_122028
+
+app.get("/api/getvkpost",async function (req,res) {
+  let uid = req.query.uid
+  let url = req.query.url  
+  let token =  database.getUserToken(uid)
+
+  let postdata=vk.getpostdata(url)
+
+  let postinfo = await vk.call(token,"wall.getById",{
+    posts:postdata.group_id+"_"+postdata.post_id,
+    extended:0,
+    copy_history_depth:1
+  })
+  
+  res.send({
+    uid:uid,
+    url:url,
+    token:token,
+    group_id:postdata.group_id,
+    post_id:postdata.post_id,
+    post_info:postinfo
+  })
+})
+
 
 function getUserData(token) {
   
@@ -59,3 +84,4 @@ process.on('SIGINT', () => {
   database.save('./database.json')
   
 })
+
