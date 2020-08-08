@@ -22,7 +22,7 @@ app.get("/", function (req, res) {
 })
 
 
-app.use("/authorize", function (req, res) {
+app.use("/api/auth", function (req, res) {
   res.redirect("https://oauth.vk.com/authorize?client_id=7554191&display=popup&revoke=1&redirect_uri=http:///api/getvktoken&scope=stats&state="+req.query.id+"&response_type=code&v=5.120")
 })
 
