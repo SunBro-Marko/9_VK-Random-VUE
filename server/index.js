@@ -23,13 +23,14 @@ app.get("/", function (req, res) {
 
 
 app.use("/api/auth", function (req, res) {
-  res.redirect("https://oauth.vk.com/authorize?client_id=7554191&display=popup&revoke=1&redirect_uri=http:///api/getvktoken&scope=stats&state="+req.query.id+"&response_type=code&v=5.120")
+  res.redirect("https://oauth.vk.com/authorize?client_id=7554191&display=popup&revoke=1&redirect_uri=http://sunbro.ru/api/getvktoken&scope=stats&state="+req.query.id+"&response_type=code&v=5.120")
 })
 
 app.get("/api/getvktoken", function (req, res) {
-    res.redirect("http://sunbro.ru?auth=true")
+    //res.status(201).json({ message: 'Пользователь авторизован' })
+    res.redirect(201,"http://sunbro.ru?auth=true")
     console.log("code:"+req.query.code + " state:" + req.query.state);
-    let url = "https://oauth.vk.com/access_token?client_id="+client_id+"&client_secret="+client_secret+"&redirect_uri=http://sunbro.ru/api/getvktoken&code=" + req.query.code
+    let url = `https://oauth.vk.com/access_token?client_id=${client_id}&client_secret=${client_secret}&redirect_uri=http://sunbro.ru/api/getvktoken&code=${req.query.code}`
     console.log(url);
     axios.get(url)
   .then((response) => {
