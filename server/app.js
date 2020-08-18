@@ -1,6 +1,8 @@
 const express = require("express");
 const config = require("config");
+const mongoose = require ("mongoose")
 const path = require("path");
+const database = require('./database');
 
 const app = express();
 
@@ -20,10 +22,22 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = config.get("port") || 5000;
 
-app.listen(port, function () {
-  console.log("Example app listening on port 80!");
-  database.load("./database.json");
-});
+async function start() {
+  try {
+    console.log('Пытаемся подключится к базе данных')
+    await mongoose.connect(config.get('mongoUri'), {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    })
+    app.listen(PORT, () => console.log(`App has been started on port ${PORT}...`))
+  } catch (e) {
+    console.log('Server Error: ', e.message)
+    process.exit(1)
+  }
+}
+
+start()
 
 process.on("SIGINT", () => {
   console.log("Log that Ctrl + C has been pressed");
