@@ -1,6 +1,0 @@
-{ 
-    "port":80, 
-    "client_id": 7554191, 
-    "client_secret": "DCYdzqPteiEvnUOJrFEs",
-    "mongoUri": "mongodb+srv://sunbro:stiNfzw7zTGcAJpJ@sunbro-claster-eiw5q.gcp.mongodb.net/UsersDataBase?retryWrites=true&w=majority"
-}

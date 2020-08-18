@@ -1,6 +1,6 @@
 .vscode
 .idea
+server/config
 server/node_modules
 client-react/node_nodules
 client-vue/node_nodules
-server/config
