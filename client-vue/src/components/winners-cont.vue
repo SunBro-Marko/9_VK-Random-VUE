@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <winner v-bind:winner="user" />
+  <div class="container">    
+    <winner v-for="user of users" v-bind:key="user.name" v-bind:winner="user"></winner>
   </div>
 </template>
 
@@ -13,17 +13,25 @@ export default {
   },
   data() {
     return {
-      user: {
-        name: "Дядя Федор",
-        img_url:
-          "https://avatars.mds.yandex.net/get-pdb/1365420/53f87cbb-ceb7-45d8-a7aa-22ba74c12167/s1200?webp=false",
-        isonline: true,
-        isopened: true,
-        isfollower: true,
-      },
+      users: [],
+      test: "кек",
     };
+  },
+  mounted() {
+    let a = fetch("http://sunbro.ru/api/ruffle/winners")
+    .then( response => response.json())
+    .then(json=>this.users=json)  
+    console.log(a)
   },
 };
 </script>
 
-<style></style>
+
+
+<style scoped>
+
+.container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+</style>
