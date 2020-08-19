@@ -1,5 +1,5 @@
 // https://api.vk.com/method/METHOD_NAME?PARAMETERS&access_token=ACCESS_TOKEN&v=5.122
-const axios = require("axios");
+const axios = require("../node_modules/axios");
 
 function getpostdata(url) {
   let arr = url.split("w=wall");
