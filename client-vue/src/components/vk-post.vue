@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div id="vk_post_-93639131_9223"></div>      
+    <div id="vk_post_-93639131_9223"></div>
+    <p>sdf</p>      
   </div>
 </template>
 
