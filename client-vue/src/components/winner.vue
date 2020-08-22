@@ -1,14 +1,19 @@
 <template>
-  <div class="card_winner">
-    <a href="">
-      <h3>{{winner.name}}</h3>
-      <img width="150px" height="100%" v-bind:src="winner.img_url" alt="" />
-    </a>
-    <p>Статус:{{winner.isonline ? "Онлайн":"Офлайн"}}</p>
+
+  <div class="card">
+        <div class="card-image">
+          <img v-bind:src="winner.img_url">
+          <span class="card-title">{{winner.name}}</span>
+        </div>
+        <div class="card-content">
+          <p>Статус:{{winner.isonline ? "Онлайн":"Офлайн"}}</p>
     <p>Профиль открыт: {{winner.isonline ? "Да":"Нет"}}</p>
     <p>Подписчик: {{winner.isfollower ? "Да":"Нет"}}</p>
-    <Button>Выбрать заново</Button>
-  </div>
+        </div>
+        <div class="card-action">
+          <a href="#">Выбрать заново</a>
+        </div>
+      </div>
 </template>
 
 <script>
