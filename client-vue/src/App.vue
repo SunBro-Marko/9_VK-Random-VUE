@@ -1,18 +1,17 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+      <router-link to="/" tag="button" class="btn cyan lighten-2">Home</router-link>|
+      <router-link to="/about" tag="button" class="btn green lighten-2">About</router-link>
     </div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <style>
+@import "~materialize-css/dist/css/materialize.min.css";
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  
   text-align: center;
   color: #2c3e50;
 }
@@ -30,3 +29,9 @@
   color: #42b983;
 }
 </style>
+
+<script>
+export default {
+  
+}
+</script>

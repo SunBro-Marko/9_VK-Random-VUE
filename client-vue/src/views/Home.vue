@@ -1,18 +1,25 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <winnercont/>    
+    <authbtn/>
+    <vkpost/>
+    <winners/>    
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import winnercont from "@/components/winners-cont.vue";
+//#Vue Components import
+  import vkpost from "@/components/vk-post-container.vue"
+  import winners from "@/components/winners-container.vue";
+  import authbtn from "@/components/authbtn.vue"
+//#endregion
 
 export default {
   name: "Home",
   components: {
-    winnercont,
+    vkpost,
+    winners,
+    authbtn
   },
 };
 </script>
