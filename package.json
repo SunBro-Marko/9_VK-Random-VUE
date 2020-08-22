@@ -1,0 +1,41 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Serever for random VK lottery",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon index.js",
+    "app": "nodemon app.js"
+  },
+  "keywords": [
+    "vk",
+    "random",
+    "gift"
+  ],
+  "author": "Mikhail Alenin <sunbro.marko@yandex.ru>",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.1",
+    "cross-fetch": "^3.0.5",
+    "express": "^4.17.1",
+    "express-validator": "^6.6.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.0",
+    "node-fetch": "^2.6.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.3.0",
+    "nodemon": "^2.0.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SunBro-Marko/9_VK-Random-VUE.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SunBro-Marko/9_VK-Random-VUE/issues"
+  },
+  "homepage": "https://github.com/SunBro-Marko/9_VK-Random-VUE#readme"
+}
