@@ -1,31 +1,37 @@
 const { Router } = require("express");
 const router = Router();
-const vk = require ('../src/vk-api')
+const vk = require("../src/vk-api");
+const database = require("../database");
 
-// /api/auth/
-router.post("/", async (req, res) => {
+// /api/getpost/
+router.get("/", async (req, res) => {
   try {
+    let time = new Date();
+    console.log(`${time} на адрес: ${req.baseUrl}- поступил запрос:, ${JSON.stringify(req.query)}`);
+
     let uid = req.query.uid;
     let url = req.query.url;
     let token = database.getUserToken(uid);
 
     let postdata = vk.getpostdata(url);
 
-    let postinfo = await vk.call(token, "wall.getById", {
-      posts: postdata.group_id + "_" + postdata.post_id,
-      extended: 0,
-      copy_history_depth: 1,
-    });
+    await vk
+      .call(token, "wall.getById", {
+        posts: postdata.group_id + "_" + postdata.post_id,
+        extended: 1,
+        copy_history_depth: 1,
+      })
+      .then((data) => vk.parsepostinfo(data))
+      .then((parse) => res.send(parse));
 
-    res.send({
-      uid: uid,
-      url: url,
-      token: token,
-      group_id: postdata.group_id,
-      post_id: postdata.post_id,
-      post_info: postinfo,
-    });
-  } catch (e) {}
+    //.then(data =>parsepostinfo(data))
+  } catch (e) {
+    res.send(e);
+  }
 });
+
+router.get("/reposts",async(req,res)=>{
+  
+})
 
 module.exports = router;

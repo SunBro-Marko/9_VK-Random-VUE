@@ -20,8 +20,7 @@ export default {
   mounted() {
     let a = fetch("/api/ruffle/winners")
     .then( response => response.json())
-    .then(json=>this.users=json)  
-    console.log(a)
+    .then(json=>this.users=json)
   },
 };
 </script>
