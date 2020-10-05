@@ -1,39 +1,40 @@
-<template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/" tag="button" class="btn cyan lighten-2">Home</router-link>|
-      <router-link to="/about" tag="button" class="btn green lighten-2">About</router-link>
-    </div>
-    <router-view />
+<template>  
+ <div class="body" id="app">
+    <Vheader />    
+    <router-view class="container" />
+    <Vfooter />
   </div>
 </template>
 
+<script>
+//import components
+import Vheader from "@/components/header/header.vue";
+import Vfooter from "@/components/footer/footer.vue";
+
+//import { component } from 'vue/types/umd'
+
+export default {
+  beforeCreate() {
+    
+  },
+  mounted(){
+   
+  },
+  components: {
+    Vheader,
+    Vfooter,
+  },
+};
+</script>
+
 <style>
 @import "~materialize-css/dist/css/materialize.min.css";
-#app {
-  
-  text-align: center;
-  color: #2c3e50;
-}
+@import "https://fonts.googleapis.com/icon?family=Material+Icons";
 
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+  .body {
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: auto 1fr auto;
+  }
 </style>
 
-<script>
-export default {
-  mounted(){
-    
-  }
-}
-</script>
