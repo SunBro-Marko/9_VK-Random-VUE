@@ -1,16 +1,16 @@
 <template>
   <div class="card">
     <div class="card-image">
-      <img v-bind:src="winner.img_url" />
-      <span class="card-title">{{winner.name}}</span>
+      <img v-bind:src="winner.photo_100" />
+      <span class="card-title">{{`${winner.first_name} ${winner.last_name}`}}</span>
     </div>
     <div class="card-content">
-      <p>Статус:{{winner.isonline ? "Онлайн":"Офлайн"}}</p>
-      <p>Профиль открыт: {{winner.isonline ? "Да":"Нет"}}</p>
-      <p>Подписчик: {{winner.isfollower ? "Да":"Нет"}}</p>
+      <a v-bind:href="'https://vk.com/id'+winner.id">Ссылка на профиль</a>
+      <p>Статус:{{winner.online ? "Онлайн":"Офлайн"}}</p>
+      <p>Профиль открыт: {{winner.is_closed ? "Нет":"Да"}}</p>
     </div>
     <div class="card-action">
-      <a href="#">Выбрать заново</a>
+      <a>Выбрать заново</a>
     </div>
   </div>
 </template>

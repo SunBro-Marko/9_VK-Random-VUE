@@ -7,160 +7,40 @@ function getpostdata(url) {
   return { group_id: data[0], post_id: data[1] };
 }
 function parsepostinfo(data){  
+  
+  const postinfo = data.items[0]
+  const groupinfo =data.groups[0]
+  const postphoto = data.items[0].attachments[0].photo
+  
   let parse= {
     postheader:{
-      group_img:data.groups[0].photo_100,
-      group_name:data.groups[0].name,
-      ispinned:data.items[0].is_pinned,
-      publish_time:data.items[0].date
+      group_img:groupinfo.photo_200,
+      group_name:groupinfo.name,
+      ispinned:postinfo.is_pinned,
+      publish_time:postinfo.date
     },
     post_body:{
-      text:data.items[0].text,
-      attacments:{},
+      text:postinfo.text,
+      attacments:{
+        photo: postphoto.sizes[postphoto.sizes.length-1].url
+      },
       post_author:{
-        url:'htttps://vk.com/id'+data.profiles[0].id,
-        name: data.profiles[0].first_name+data.profiles[0].last_name
+        url:'https://vk.com/id'+data.profiles[0].id,
+        name: `${data.profiles[0].first_name} ${data.profiles[0].last_name}`
       }
     },
     post_footer:{
-      comments_count:data.items[0].comments.count,
-      likes_count:data.items[0].likes.count,
-      reposts_count:data.items[0].reposts.count,
-      views_count:data.items[0].views.count
+      comments_count:postinfo.comments.count,
+      likes_count:postinfo.likes.count,
+      reposts_count:postinfo.reposts.count,
+      views_count:postinfo.views.count
     }
   }
     return parse
 }
 
-async function call(token, method, data) {
-  data = objInStr(data);
-  let url = urlcompile(token, method, data);
-  try {
-    console.log(token)
-    let postinfo = await axios.get(url);    
-    if (postinfo.data.error) {
-      throw postinfo.data.error;
-    } else {
-      return postinfo.data.response;
-    }
-  } catch (e) {
-    throw e;
-  }
-}
-
-function objInStr(obj) {
-  let str = "";
-
-  for (key in obj) {
-    if (str === "") {
-      str += key + "=" + obj[key];
-    } else {
-      str += "&" + key + "=" + obj[key];
-    }
-  }
-  return str;
-}
-
-function urlcompile(token, method, data) {
-  return (`https://api.vk.com/method/${method}?${data}&access_token="${token}&v=5.122`
-  );
-}
-
-var errors = {
-  'session_not_valid': {
-    'code': 1,
-    'description': 'JSON in session file is not valid',
-    'ru_description': 'JSON файла сессии не имеет правильный формат'
-  },
-  'session_not_found': {
-    'code': 2,
-    'description': 'Session file is not found',
-    'ru_description': 'Файл сессии не найден'
-  },
-  'empty_session': {
-    'code': 3,
-    'description': 'Session file is empty',
-    'ru_description': 'Файл сессии пустой'
-  },
-  'empty_response': {
-    'code': 4,
-    'description': 'The server responsed us with empty data',
-    'ru_description': 'Ответ сервера пришел пустым'
-  },
-  'access_token_not_valid': {
-    'code': 5,
-    'description': 'Access token not valid',
-    'ru_description': 'Access токен не правильный'
-  },
-  'captcha_error': {
-    'code': 6,
-    'description': 'You need solve it and then put to params captcha_key, or use captchaHandler for solve it automatic',
-    'ru_description': 'Необходимо решить капчу, вставьте в параметр captcha_key код с картинки или используйте captchaHandler для того, чтобы решать капчу автоматически'
-  },
-  'method_deprecated': {
-    'code': 7,
-    'description': 'This method was deprecated',
-    'ru_description': 'Этот метод был удален'
-  },
-  'is_not_string': {
-    'code': 8,
-    'description': 'This parameter is not string',
-    'ru_description': 'Параметр должен быть строкой'
-  },
-  'live_error': {
-    'code': 10,
-    'description': "Maybe VK algo was changed, but we can't parse count of views from this video",
-    'ru_description': 'Может быть, алгоритмы ВКонтакте были изменены, но сейчас мы не можем получить количество просмотров этой странсляции'
-  },
-  'server_error': {
-    'code': 11,
-    'description': "Server was down or we don't know what happaned",
-    'ru_description': 'Сервер упал, или нам неизвестно, что произошло'
-  },
-  'invalid_response': {
-    'code': 12,
-    'description': 'Server responsed us with not a JSON format',
-    'ru_description': 'Сервер ответил не в формате JSON'
-  },
-  'is_not_object': {
-    'code': 13,
-    'description': 'This parameter is not an object',
-    'ru_description': 'Параметр должен быть объектом'
-  },
-  'upload_url_error': {
-    'code': 14,
-    'description': 'upload_url is not defied in vk response',
-    'ru_description': 'upload_url не указан в ответе сервера'
-  },
-  'is_not_function': {
-    'code': 15,
-    'description': 'This parameter is not a function',
-    'ru_description': 'Параметр должен быть функцией'
-  },
-  'is_not_number': {
-    'code': 16,
-    'description': 'This parameter is not a number',
-    'ru_description': 'Параметр должен быть числом'
-  },
-  'http_client': {
-    'parent_hash': 2000,
-    'errors': {
-      'need_auth': {
-        'code': 1,
-        'description': 'Need authenticate by password and username. This data not saving in session file!',
-        'ru_description': 'Вам нужно ввести параметр username и password, в сессии не сохранен пароль и логин'
-      },
-      'not_supported': {
-        'code': 2,
-        'description': 'Library does not support this authentication way... sorry',
-        'ru_description': 'Библиотека не поддерживает авторизацию через HTTP... к сожалению'
-      }
-    }
-  }
-};
 
 module.exports = {
   getpostdata,
-  call,
   parsepostinfo,
 };

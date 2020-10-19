@@ -1,37 +1,58 @@
-const { Router } = require("express");
-const router = Router();
-const vk = require("../src/vk-api");
-const database = require("../database");
+const { Router } = require('express')
+const router = Router()
+const User = require('../models/user.model')
+const easyvk = require('easyvk')
+const vkapi = require('../src/vk-api')
 
 // /api/getpost/
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
+  res.set('Access-Control-Allow-Origin','*')
   try {
-    let time = new Date();
-    console.log(`${time} на адрес: ${req.baseUrl}- поступил запрос:, ${JSON.stringify(req.query)}`);
+    const vk = await easyvk({
+      token: req.user.vk_token,
+      save: false, //Не вести лог файл для сессий
+    })
+    const url = req.query.url
 
-    let uid = req.query.uid;
-    let url = req.query.url;
-    let token = database.getUserToken(uid);
+    const postdata = vkapi.getpostdata(url)
 
-    let postdata = vk.getpostdata(url);
+    post = await vk.call('wall.getById', {
+      posts: `${postdata.group_id}_${postdata.post_id}`,
+      extended: 1,
+    })
 
-    await vk
-      .call(token, "wall.getById", {
-        posts: postdata.group_id + "_" + postdata.post_id,
-        extended: 1,
-        copy_history_depth: 1,
-      })
-      .then((data) => vk.parsepostinfo(data))
-      .then((parse) => res.send(parse));
+    const parsedpost = vkapi.parsepostinfo(post)
 
-    //.then(data =>parsepostinfo(data))
+    const reposts = await vk.call('wall.getReposts', {
+      owner_id: postdata.group_id,
+      post_id: postdata.post_id,
+      offset: 0,
+      count: 1000,
+    })
+
+    const user = req.user
+
+    User.findOne({ vk_id: user.vk_id }, (err, obj) => {
+      if (!err) {
+        obj.ruffle.post = parsedpost
+        obj.ruffle.reposts = reposts.profiles
+        obj.ruffle.blacklist=[]
+        obj.ruffle.winners=[]
+        obj.save()
+      }
+    })
+
+    res.send({
+      post: parsedpost,
+      reposts: reposts.profiles,
+    })
   } catch (e) {
-    res.send(e);
+    if (e.error_msg) {
+      console.log(e.error_msg)
+    } else {
+      console.log(e)
+    }
   }
-});
-
-router.get("/reposts",async(req,res)=>{
-  
 })
 
-module.exports = router;
+module.exports = router

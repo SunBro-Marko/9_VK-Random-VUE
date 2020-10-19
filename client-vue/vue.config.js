@@ -1,5 +1,9 @@
 module.exports = {
-    devServer: {
-      proxy: 'http://localhost:80'
-    }
-  }
+  "devServer": {
+    "proxy": "http://localhost:3000",
+  },
+  "transpileDependencies": [
+    
+  ]
+  
+}
