@@ -1,44 +1,49 @@
 <template>
-  <div>
-    <nav class="nav-extended light-blue darken-4">
-      <div class="container nav-wrapper">
-        <a href="" class="brand-logo center">
-            <img src="https://vk.com/images/svg_icons/ic_head_logo.svg" height="25px" alt="">
-            Ruffle
-        </a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger">
-          <i class="material-icons">menu</i>
-        </a>
-        <ul id="nav-mobile" class="left hide-on-med-and-down">
-          <li>
-            <router-link to="/">Home</router-link>
-          </li>
-          <li>
-            <router-link to="/about">About</router-link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-lg">
+      <b-navbar-brand to="/">
+        <img
+          src=".\src\VK_Compact_Logo.png"
+          height="35px"
+          class="d-inline-block align-top"
+          alt="Kitten"
+        />
+        Конкурс
+      </b-navbar-brand>
 
-    <ul class="sidenav" id="mobile-demo">
-      <li>
-        <router-link to="/">Home</router-link>
-      </li>
-      <li>
-        <router-link to="/about">About</router-link>
-      </li>
-    </ul>
-  </div>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <div class="container-fluid d-flex justify-content-between">
+          <div class="col-sm-8">
+            <b-navbar-nav>
+              <b-nav-item to="/">Home</b-nav-item>
+              <b-nav-item to="/about">About</b-nav-item>
+            </b-navbar-nav>
+          </div>
+          <div class="col-sm-4">
+            <usercard v-bind:user="getUserDate" />
+          </div>
+        </div>
+      </b-collapse>
+    </div>
+  </nav>
 </template>
 
 <script>
+//Vue Components import
+import usercard from "@/components/header/src/user-card.vue";
 
+import { mapGetters } from "vuex";
 
 export default {
-  name: "header",
-
-  mounted() {
-    M.AutoInit();
+  name: "Vheader",
+  computed: mapGetters(["getAuthState", "getUserDate"]),
+  data: () => ({
+    activeItem: 0,
+  }),
+  components: {
+    usercard,
   },
 };
 </script>

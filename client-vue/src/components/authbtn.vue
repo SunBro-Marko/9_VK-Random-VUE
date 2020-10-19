@@ -1,6 +1,6 @@
 <template>
   <div>
-    <a
+    <b-button variant="primary"
       v-on:click="submit"
       class="waves-effect waves-light btn light-blue darken-3"
     >
@@ -11,8 +11,7 @@
           alt=""
         /> </i
       >Авторизация
-    </a>
-    <button v-on:click="submit">Поприветствовать</button>
+    </b-button>
   </div>
 </template>
 
@@ -20,7 +19,7 @@
 export default {
   methods: {
     async submit() {
-      window.open('http://localhost:80/api/auth');   
+      window.location.href = 'http://localhost:3000/api/auth';   
     },
   },
 };

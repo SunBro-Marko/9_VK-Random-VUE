@@ -12,8 +12,9 @@
 
 
 <script>
+
 export default {
-    name: "footer",
+    name: "Vfooter",
 
 }
 </script>

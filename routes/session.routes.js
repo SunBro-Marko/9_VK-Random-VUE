@@ -2,15 +2,25 @@ const {Router} = require('express')
 const router = Router()
 
 // /api/session/
-router.get('/',async (req,res)=>{
-    if(req.user){
-        res.send({AuthState:true})
-        console.log('В меня постучали и я сказал что пользователь авторизован') 
-    }
-    else{
-        res.send({AuthState:false})
-        console.log('В меня постучали и я сказал что пользователь не авторизован')  
-    }    
+router.get('/', async (req, res) => {
+  if (req.user) {
+    const user = req.user
+    res.send({
+      AuthState: true,
+      vk_id: user.vk_id,
+      vk_displayName: user.vk_displayName,
+      vk_photo: user.vk_photo,
+      vk_profileUrl: user.vk_profileUrl,
+    })
+  } else {
+    res.send({
+      AuthState: false,
+      vk_id: '',
+      vk_displayName: '',
+      vk_photo: '',
+      vk_profileUrl: '',
+    })
+  }
 })
 
 // /api/session/new

@@ -1,25 +1,23 @@
-<template>
-  <div class="input-field">
-    <textarea id="textarea1" class="materialize-textarea"></textarea>
-    <label for="textarea1">Ссылка на пост для розыгрыша</label>
-    <vkpost/>
-  </div>  
+<template> 
+    <vkpost v-if="getPostState.postIsLoaded" v-bind:data="getPostState.postData.post" />
 </template>
 
 <script>
 import vkpost from "@/components/vk-post.vue";
+import { mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "vk-post-container",
   components: {
     vkpost,
+  },  
+  computed: {
+    ...mapGetters(["getPostState"])
   },
-  data() {
-    return {
-        postinfo:{}      
-    };
-  },
-  mounted() {},
+  methods:{
+    ...mapActions(["getPost"])
+  }
 };
 </script>
 

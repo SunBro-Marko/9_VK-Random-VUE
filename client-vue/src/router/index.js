@@ -31,8 +31,7 @@ const router = new VueRouter({
 
 export default router
 
-router.beforeEach(async (to, from, next) => {
-  console.log("Мы тута")
+router.beforeEach(async (to, from, next) => {  
   await store.dispatch("getUserAuthState")
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.getAuthState) {

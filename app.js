@@ -2,6 +2,7 @@ const express = require('express')
 const session = require('express-session')
 const config = require('config')
 const mongoose = require('mongoose')
+const MongoStore = require('connect-mongo')(session)
 const path = require('path')
 const database = require('./database')
 const passport = require('passport')
@@ -12,13 +13,21 @@ const cors = require('cors')
 const app = express()
 
 
-app.use(session({ secret: 'cats' }))
+app.use(
+  session({
+    secret: 'cats',
+    resave: true,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: require('mongoose').connection }),
+  })
+)
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(cookieParser())
+
 
 app.use('/api/session', require('./routes/session.routes'))
 app.use('/api/auth', require('./routes/auth.routes'))

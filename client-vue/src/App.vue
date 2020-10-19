@@ -1,7 +1,7 @@
 <template>  
  <div class="body" id="app">
     <Vheader />    
-    <router-view class="container" />
+    <router-view/>
     <Vfooter />
   </div>
 </template>
@@ -25,11 +25,11 @@ export default {
     Vfooter,
   },
 };
+
 </script>
 
 <style>
-@import "~materialize-css/dist/css/materialize.min.css";
-@import "https://fonts.googleapis.com/icon?family=Material+Icons";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
   .body {
     display: grid;
