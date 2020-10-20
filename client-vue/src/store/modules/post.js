@@ -3,41 +3,38 @@ const module = {
     urlinput: '',
     post: {
       postData: '',
-      postIsfetched: false,
-      postIsLoaded: false,
-      postFetchFailde:false,
+      Isfetched: false,
+      IsLoaded: false,
+      FetchFailde:false,
     },
 
-    winners: {
-      winnersData: '',
-      winnersIsfetched: false,
-      winnersIsLoaded: false,
-    },
   },
   actions: {
-    async getPost({ commit, state }) {      
+    async getPost({ commit, state, winners }) {      
       try {
+      commit('winnersStateOff')  
       commit('postfetched')
       const url = state.urlinput
       const res = await fetch(`/api/getpost/?url=${url}`)
-      const postinfo = await res.json()  
-      commit('postfetched',postinfo)        
+      const postinfo = await res.json()
+      console.log(postinfo)  
+      commit('postfetched',postinfo.post)        
       } catch (e) {
         console.log(e)
-        state.post.postFetchFailde.true  
+        state.post.FetchFailde.true  
       } 
     },
   },
   mutations: {
     postfetched(state,payload=null){
-      if(state.post.postIsfetched===false){
-        state.post.postIsfetched=true
-        state.post.postIsLoaded=false
+      if(state.post.Isfetched===false){
+        state.post.Isfetched=true
+        state.post.IsLoaded=false
       }
       else{
-        state.post.postIsfetched=false
-        state.post.postIsLoaded=true
-        state.post.postData=payload
+        state.post.Isfetched=false
+        state.post.IsLoaded=true
+        state.post.Data=payload
       }
     },
     

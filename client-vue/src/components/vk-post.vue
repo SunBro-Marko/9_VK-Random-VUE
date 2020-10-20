@@ -1,26 +1,54 @@
 <template>
   <div v-if="data" class="card">
-    <div class="card-header">
-      <img v-bind:src="data.postheader.group_img" height="40px" alt="">
-      <div>
-        <h5>{{data.postheader.group_name}}</h5> 
-        <p>{{data.postheader.ispinned}}: ? "Да":"Нет"</p>
-        <p>Время публикации:{{data.postheader.publish_time}}</p>
+    <div class="card-header container">
+      <div class="row">
+        <div class="col-2">
+          <img v-bind:src="data.postheader.group_img" height="55px" alt="" />
+        </div>
+        <div class="col-10">
+          <h6>{{ data.postheader.group_name }}</h6>
+          <span>{{
+            new Date(data.postheader.publish_time * 1000).toLocaleString(
+              "ru-RU",
+              {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+              }
+            )
+          }}</span>
+        </div>
       </div>
     </div>
     <div class="card-body">
-      <p class="text">{{data.post_body.text}}</p>
-      <img width="100%" v-bind:src="data.post_body.attacments.photo" alt="">
-      <a v-bind:href="data.post_body.post_author.url">{{data.post_body.post_author.name}}</a>
+      <p class="text">{{ data.post_body.text }}</p>
+      <img width="100%" v-bind:src="data.post_body.attacments.photo" alt="" />
+      <a v-bind:href="data.post_body.post_author.url">{{
+        data.post_body.post_author.name
+      }}</a>
     </div>
     <div class="card-footer">
-      <div class="likes-count">Лайков:{{data.post_footer.likes_count}}</div>
-      <div class="comments-count">Комментариев:{{data.post_footer.comments_count}}</div>
-      <div class="reposts-count">Репостов:{{data.post_footer.reposts_count}}</div>
-      <div class="view-count">Просмотров:{{data.post_footer.views_count}}</div>
+      <div class="row">
+        <div class="col">
+          <img src="@/assets/like_outline_24.svg" alt="" />
+          {{ data.post_footer.likes_count }}
+        </div>
+        <div class="col">
+          <img src="@/assets/comment_outline_24.svg" alt="" />
+          {{ data.post_footer.comments_count }}
+        </div>
+        <div class="col">
+          <img src="@/assets/reply_outline_24.svg" alt="" />
+          {{ data.post_footer.reposts_count }}
+        </div>
+        <div class="col">
+          <img src="@/assets/view_24.svg" alt="" />
+          {{ data.post_footer.views_count }}
+        </div>
+      </div>
     </div>
-
-        
   </div>
 </template>
 
@@ -32,12 +60,11 @@ export default {
 </script>
 
 <style>
-.card{
+.card {
   max-width: 500px;
-  padding: 20px;
 }
 
-.card-header img{
+.card-header img {
   border-radius: 50%;
 }
 </style>

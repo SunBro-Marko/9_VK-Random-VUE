@@ -1,5 +1,5 @@
 <template> 
-    <vkpost v-if="getPostState.postIsLoaded" v-bind:data="getPostState.postData.post" />
+    <vkpost v-if="getPostState.IsLoaded" v-bind:data="getPostState.Data" />
 </template>
 
 <script>

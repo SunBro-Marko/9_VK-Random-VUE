@@ -34,6 +34,10 @@ const module = {
       }
     },
 
+    winnersStateOff(state){
+        state.winners.IsLoaded=false
+    },
+
     updateWinnersCount(state, count) {
       state.winners.count = count
     },

@@ -10,7 +10,7 @@
       <p>Профиль открыт: {{winner.is_closed ? "Нет":"Да"}}</p>
     </div>
     <div class="card-action">
-      <a>Выбрать заново</a>
+      <b-button variant="danger">НАХУЙ</b-button>
     </div>
   </div>
 </template>

@@ -3,10 +3,10 @@
     <postloader />
     <hr />
     <div class="row">
-      <div class="col">
-        <vkpost />
+      <div class="col-lg d-flex justify-content-center">
+        <vkpost/>
       </div>
-      <div class="col">
+      <div class="col-md ">
         <ruffleform />
       </div>
     </div>
