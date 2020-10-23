@@ -1,6 +1,7 @@
 const {Router} = require('express')
 const router = Router()
 const passport = require("passport");
+const config = require('config')
 
 
 require("../auth.strategies/vk.strategy")
@@ -15,9 +16,9 @@ router.get(
   // /api/auth/token
   router.get(
     "/token",
-    passport.authenticate("vkontakte", { failureRedirect: "http://localhost:8080/auth" }),
+    passport.authenticate("vkontakte", { failureRedirect: `${config.get('frontend_url')}/auth` }),
     async (req, res) => {
-      res.redirect(`http://localhost:8080/`)   
+      res.redirect(config.get('frontend_url'))   
     }
   );
   

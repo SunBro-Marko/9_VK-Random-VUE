@@ -8,26 +8,25 @@
         <div class="col-10">
           <h6>{{ data.postheader.group_name }}</h6>
           <span>{{
-            new Date(data.postheader.publish_time * 1000).toLocaleString(
-              "ru-RU",
-              {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-                hour: "numeric",
-                minute: "numeric",
-              }
-            )
+            new Date(data.postheader.publish_time * 1000).toLocaleString('ru-RU', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              hour: 'numeric',
+              minute: 'numeric',
+            })
           }}</span>
         </div>
       </div>
     </div>
     <div class="card-body">
       <p class="text">{{ data.post_body.text }}</p>
-      <img width="100%" v-bind:src="data.post_body.attacments.photo" alt="" />
-      <a v-bind:href="data.post_body.post_author.url">{{
-        data.post_body.post_author.name
-      }}</a>
+      <img class="pb-2" width="100%" v-bind:src="data.post_body.attacments.photo" alt="" />
+      
+        <a class="badge badge-light" v-bind:href="data.post_body.post_author.url"
+          ><img src="@/assets/user_16.svg" alt="" />{{ data.post_body.post_author.name }}</a
+      
+      >
     </div>
     <div class="card-footer">
       <div class="row">
@@ -54,9 +53,9 @@
 
 <script>
 export default {
-  name: "vk-post",
-  props: ["data"],
-};
+  name: 'vk-post',
+  props: ['data'],
+}
 </script>
 
 <style>

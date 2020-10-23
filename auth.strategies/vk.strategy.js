@@ -8,7 +8,7 @@ passport.use(
     {
       clientID: config.get('client_id'),
       clientSecret: config.get('client_secret'),
-      callbackURL: `http://${config.get('base_url')}/api/auth/token`,
+      callbackURL: `${config.get('base_url')}/api/auth/token`,
     },
     function (accessToken, refreshToken, params, profile, done) {
       const candidate = new User({

@@ -6,7 +6,7 @@ const vkapi = require('../src/vk-api')
 
 // /api/getpost/
 router.get('/', async (req, res) => {
-  res.set('Access-Control-Allow-Origin','*')
+  res.set('Access-Control-Allow-Origin', '*')
   try {
     const vk = await easyvk({
       token: req.user.vk_token,
@@ -36,9 +36,12 @@ router.get('/', async (req, res) => {
       if (!err) {
         obj.ruffle.post = parsedpost
         obj.ruffle.reposts = reposts.profiles
-        obj.ruffle.blacklist=[]
-        obj.ruffle.winners=[]
+        obj.ruffle.blacklist = []
+        obj.ruffle.winners = []
         obj.save()
+      }
+      else{
+        
       }
     })
 

@@ -4,10 +4,10 @@
     <hr />
     <div class="row">
       <div class="col-lg d-flex justify-content-center">
-        <vkpost/>
+        <vkpostcontainer v-if="getPostState.IsLoaded" />
       </div>
       <div class="col-md ">
-        <ruffleform />
+        <ruffleform v-if="getPostState.IsLoaded" />
       </div>
     </div>
     <hr />
@@ -18,25 +18,25 @@
 <script>
 // @ is an alias to /src
 //Vue Components import
-import postloader from "@/components/post-loader.vue";
-import vkpost from "@/components/vk-post-container.vue";
-import ruffleform from "@/components/ruffle/ruffle-form.vue";
-import winners from "@/components/winners-container.vue";
-import authbtn from "@/components/authbtn.vue";
+import postloader from '@/components/post-loader.vue'
+import vkpostcontainer from '@/components/vk-post-container.vue'
+import ruffleform from '@/components/ruffle/ruffle-form.vue'
+import winners from '@/components/winners-container.vue'
+import authbtn from '@/components/authbtn.vue'
 //#endregion
 
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
-  name: "Ruffle",
-  computed: mapGetters(["getAuthState"]),
+  name: 'Ruffle',
+  computed: { ...mapGetters(['getAuthState', 'getPostState']) },
   mounted() {},
   components: {
     postloader,
-    vkpost,
+    vkpostcontainer,
     winners,
     authbtn,
     ruffleform,
   },
-};
+}
 </script>

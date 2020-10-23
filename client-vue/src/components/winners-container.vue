@@ -1,7 +1,7 @@
 <template>
-  <div v-if="getWinnersState.IsLoaded" class="container">      
+  <b-card-group deck v-if="getWinnersState.IsLoaded" class="justify-content-around">      
     <winner v-for="user of getWinnersState.Data" v-bind:key="user.name" v-bind:winner="user"></winner>
-  </div>
+  </b-card-group>
 </template>
 
 <script>
@@ -20,9 +20,5 @@ export default {
 </script>
 
 <style scoped>
-.container{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 20px;
-}
+
 </style>

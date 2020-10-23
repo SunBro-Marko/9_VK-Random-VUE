@@ -1,5 +1,6 @@
 <template>  
  <div class="body" id="app">
+    <notifications group="foo" />
     <Vheader />    
     <router-view/>
     <Vfooter />
