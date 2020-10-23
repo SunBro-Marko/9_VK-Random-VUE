@@ -10,6 +10,9 @@ router.get('/', async (req, res) => {
     User.findOne({ vk_id: user.vk_id }, (err, obj) => {
       if (!err) {
         try {
+          if(obj.ruffle.post.post_footer.repost_count!==0|| !obj.ruffle.reposts){
+            throw Error('Вы не имеете прав на проведение розыгрыша по указанной ссылке')
+          }
           const reposts = obj.ruffle.reposts
           let blacklist = obj.ruffle.blacklist
           const winners = FindWinners(reposts, blacklist, fetchdata.count)
