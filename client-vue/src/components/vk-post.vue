@@ -1,5 +1,5 @@
 <template>
-  <div v-if="data" class="card">
+  <div v-if="data" class="card mb-4">
     <div class="card-header container">
       <div class="row">
         <div class="col-2">
@@ -21,9 +21,9 @@
     </div>
     <div class="card-body">
       <p class="text">{{ data.post_body.text }}</p>
-      <img class="pb-2" width="100%" v-bind:src="data.post_body.attacments.photo" alt="" />
+      <vkpostattachment v-for="attach of data.post_body.attachments" v-bind:key="attach.type + Math.random()" v-bind:data="attach"/>
       
-        <a class="badge badge-light" v-bind:href="data.post_body.post_author.url"
+      <a v-if="data.post_body.author" class="badge badge-light" v-bind:href="data.post_body.post_author.url"
           ><img src="@/assets/user_16.svg" alt="" />{{ data.post_body.post_author.name }}</a
       
       >
@@ -52,9 +52,14 @@
 </template>
 
 <script>
+import vkpostattachment from './vk-post-attachment.vue'
+
 export default {
   name: 'vk-post',
   props: ['data'],
+  components:{
+    vkpostattachment
+  }
 }
 </script>
 

@@ -13,9 +13,39 @@ function getpostdata(url) {
 
 function parsepostinfo(data) {
   try {
+
     const postinfo = data.items[0]
     const groupinfo = data.groups[0]
-    const postphoto = data.items[0].attachments[0].photo
+    const postattachments = data.items[0].attachments
+
+    let attachments = []
+  
+    if (postattachments) {
+      postattachments.forEach((element) => {
+        if (element) {
+          switch (element.type) {
+            case 'video':
+              attachments.push({
+                type: 'video',
+                photo: element.video.image[3].url,
+              })
+              break
+            case 'link':
+              attachments.push({
+                type: 'link',
+                url: element.link.url,
+              })
+              break
+            case 'photo':
+              attachments.push({
+                type: 'photo',
+                photo: element.photo.sizes[element.photo.sizes.length - 1].url,
+              })
+              break
+          }
+        }
+      })
+    }
 
     let parse = {
       postheader: {
@@ -26,13 +56,11 @@ function parsepostinfo(data) {
       },
       post_body: {
         text: postinfo.text,
-        attacments: {
-          photo: postphoto.sizes[postphoto.sizes.length - 1].url,
-        },
-        post_author: {
+        attachments: attachments,
+        post_author: data.profiles[0] ? {
           url: 'https://vk.com/id' + data.profiles[0].id,
           name: `${data.profiles[0].first_name} ${data.profiles[0].last_name}`,
-        },
+        }:null,
       },
       post_footer: {
         comments_count: postinfo.comments.count,
@@ -43,7 +71,8 @@ function parsepostinfo(data) {
     }
     return parse
   } catch (error) {
-    throw new Error('Не удалось обработать содержимое поста, попробуйте ещё раз...')
+    console.log()
+    throw new Error(error.message)
   }
 }
 

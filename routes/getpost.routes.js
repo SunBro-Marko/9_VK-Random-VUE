@@ -20,6 +20,7 @@ router.get('/', async (req, res) => {
       posts: `${postdata.group_id}_${postdata.post_id}`,
       extended: 1,
     })
+    
 
     const parsedpost = vkapi.parsepostinfo(post)
 
@@ -45,15 +46,15 @@ router.get('/', async (req, res) => {
       }
     })
 
-    res.send({
+    res.status(200).json({
       post: parsedpost,
       reposts: reposts.profiles,
     })
   } catch (e) {
     if (e.error_msg) {
-      console.log(e.error_msg)
+      res.status(501).json(e.error_msg)
     } else {
-      console.log(e)
+      res.status(501).json(e.message)
     }
   }
 })

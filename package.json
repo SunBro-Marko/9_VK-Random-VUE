@@ -7,7 +7,8 @@
     "server": "nodemon app.js",
     "vue-client": "npm run serve --prefix client-vue",
     "dev": "concurrently \"npm run server\" \"npm run vue-client\"",
-    "product": "cross-env NODE_ENV=production nodemon app.js"
+    "product": "cross-env NODE_ENV=production nodemon app.js",
+    "demon": "cross-env NODE_ENV=production pm2 start app.js"    
   },
   "keywords": [
     "vk",

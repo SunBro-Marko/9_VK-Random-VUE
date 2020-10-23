@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const module = {
   state: {
     urlinput: '',
@@ -5,39 +7,57 @@ const module = {
       postData: '',
       Isfetched: false,
       IsLoaded: false,
-      FetchFailde:false,
+      FetchFailde: false,
     },
-
   },
   actions: {
-    async getPost({ commit, state, winners }) {      
+    async getPost({ commit, state, post }) {
       try {
-      commit('winnersStateOff')  
-      commit('postfetched')
-      const url = state.urlinput
-      const res = await fetch(`/api/getpost/?url=${url}`)
-      const postinfo = await res.json()
-      console.log(postinfo)  
-      commit('postfetched',postinfo.post)        
+        commit('winnersStateOff')
+        commit('postfetched')
+        const url = state.urlinput
+        const res = await fetch(`/api/getpost/?url=${url}`)
+        if (res.status === 501) {
+          const err = await res.json()
+          commit('winnersfetchfailed')
+          Vue.notify({
+            group: 'foo',
+            type: 'warn',
+            title: 'Всё пошло по пизде !',
+            text: err,
+          })
+        } else {
+          const postinfo = await res.json()          
+          commit('postloaded', postinfo.post)
+          Vue.notify({
+            group: 'foo',
+            title: 'Запрос прошёл успешно !',
+            text: 'Пост для розыгрыша загружен, возрадуйтесь кабанчеги',
+          })
+        }
       } catch (e) {
-        console.log(e)
-        state.post.FetchFailde.true  
-      } 
+        commit('postfetchfailed')
+      }
     },
   },
   mutations: {
-    postfetched(state,payload=null){
-      if(state.post.Isfetched===false){
-        state.post.Isfetched=true
-        state.post.IsLoaded=false
-      }
-      else{
-        state.post.Isfetched=false
-        state.post.IsLoaded=true
-        state.post.Data=payload
-      }
+    postfetched(state) {
+      state.post.Isfetched = true
+      state.post.IsLoaded = false
     },
-    
+
+    postloaded(state, payload = null) {
+      state.post.Isfetched = false
+      state.post.IsLoaded = true
+      state.post.Data = payload
+    },
+
+    postfetchfailed(state) {
+      state.post.Isfetched = false
+      state.post.IsLoaded = false
+      state.post.FetchFailed = true
+    },
+
     updateurl(state, url) {
       state.urlinput = url
     },
