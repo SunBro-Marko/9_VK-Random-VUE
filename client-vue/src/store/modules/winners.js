@@ -22,7 +22,7 @@ const module = {
           Vue.notify({
             group: 'foo',
             type: 'warn',
-            title: 'Всё пошло по пизде !',
+            title: 'Всё пошло по бороде !',
             text: err,
           })
         } else {

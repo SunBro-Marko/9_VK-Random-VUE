@@ -18,6 +18,9 @@ const app = express()
 app.use(
   session({
     secret: config.get('session_secret'),
+    cookie: { 
+      maxAge: 86400000 //Милисекунды ! Срок жизни токена ВК (В любом случае токен будет просрочер позже получения нового)
+    },
     resave: true,
     saveUninitialized: true,
     store: new MongoStore({ mongooseConnection: require('mongoose').connection }),

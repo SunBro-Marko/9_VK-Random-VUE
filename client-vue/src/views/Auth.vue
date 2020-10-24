@@ -1,23 +1,20 @@
 <template>
-  <div class="container">Тут будут правила и кнопка авторизации
-    <authbtn/>
+  <div class="container">
+    <vue-headful title="Авторизация" description="Страница авторизации в приложении для розыгрыша ВКонтакте" />
+    <authbtn />
   </div>
-  
 </template>
 
 <script>
-import authbtn from "@/components/authbtn.vue";
+import authbtn from '@/components/authbtn.vue'
 
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex'
 
 export default {
-  components: {    
-    authbtn
+  components: {
+    authbtn,
   },
-
 }
 </script>
 
-<style>
-
-</style>
+<style></style>

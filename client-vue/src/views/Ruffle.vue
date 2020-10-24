@@ -1,16 +1,22 @@
 <template>
   <div class="container">
-    <postloader />
-    <hr />
-    <div class="row">
+    <vue-headful title="Розыгрыш ВКонтакте" description="Приложение для проведения розыгрыша ВКонтакте" />
+    <div class="row mb-5">
+      <postloader />      
+    </div>
+    <div class="row mb-5">
+      <img class="post_spinner" v-if="getPostState.Isfetched" src="@/assets/Running.gif" alt="" />
+      <div v-if="getPostState.FetchFailed"  class="post_loading_failed text-center">
+        <h3>Не получилось загрузить пост</h3>
+        <img class="post_spinner" src="@/assets/Failed.gif" alt="" />
+      </div>
       <div class="col-lg d-flex justify-content-center">
         <vkpostcontainer v-if="getPostState.IsLoaded" />
       </div>
       <div class="col-md ">
         <ruffleform v-if="getPostState.IsLoaded" />
-      </div>
+      </div>      
     </div>
-    <hr />
     <winners />
   </div>
 </template>
@@ -40,3 +46,14 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.post_loading_failed{
+  width: 100%;
+}
+
+.post_spinner {
+  max-width: 100%;
+  height: auto;
+}
+</style>

@@ -1,6 +1,6 @@
 <template>
-  <b-input-group prepend="Ссылка на пост в ВК" class="mt-3">    
-      <b-form-input v-model="message"></b-form-input>
+  <b-input-group class="mt-3">    
+      <b-form-input label="Ссылка на пост ВК" v-model="message"></b-form-input>
       <b-input-group-append>        
         <b-button v-on:click="getPost" variant="primary">Загрузить данные</b-button>
       </b-input-group-append>

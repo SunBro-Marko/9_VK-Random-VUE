@@ -7,7 +7,7 @@ const module = {
       postData: '',
       Isfetched: false,
       IsLoaded: false,
-      FetchFailde: false,
+      FetchFailed: false,
     },
   },
   actions: {
@@ -19,11 +19,11 @@ const module = {
         const res = await fetch(`/api/getpost/?url=${url}`)
         if (res.status === 501) {
           const err = await res.json()
-          commit('winnersfetchfailed')
+          commit('postfetchfailed')
           Vue.notify({
             group: 'foo',
             type: 'warn',
-            title: 'Всё пошло по пизде !',
+            title: 'Всё пошло по бороде !',
             text: err,
           })
         } else {
@@ -44,6 +44,7 @@ const module = {
     postfetched(state) {
       state.post.Isfetched = true
       state.post.IsLoaded = false
+      state.post.FetchFailed = false
     },
 
     postloaded(state, payload = null) {

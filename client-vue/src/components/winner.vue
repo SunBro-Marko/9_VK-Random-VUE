@@ -11,7 +11,7 @@
         <p>Статус:{{ winner.online ? 'Онлайн' : 'Офлайн' }}</p>
         <p>Профиль открыт: {{ winner.is_closed ? 'Нет' : 'Да' }}</p>
       </div>
-      <div class="card-action">
+      <div style="display:none" class="card-action">
         <b-button block variant="danger">Заменить</b-button>
       </div>
     </div>
