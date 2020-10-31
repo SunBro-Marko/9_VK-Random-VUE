@@ -3,7 +3,7 @@
     <div class="container-lg">
       <b-navbar-brand to="/">
         <img
-          src=".\src\VK_Compact_Logo.png"
+          src="./src/VK_Compact_Logo.png"
           height="35px"
           class="d-inline-block align-top"
           alt="Kitten"
