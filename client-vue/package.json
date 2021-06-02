@@ -11,7 +11,7 @@
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.17.3",
     "core-js": "^3.6.5",
-    "marked": "^1.2.2",
+    "marked": "^2.0.0",
     "save": "^2.4.0",
     "vue": "^2.6.11",
     "vue-headful": "^2.1.0",
