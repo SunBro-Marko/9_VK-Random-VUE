@@ -4,14 +4,7 @@ const config = require('config')
 const mongoose = require('mongoose')
 const MongoStore = require('connect-mongo')(session)
 const path = require('path')
-const fs = require('fs')
 const passport = require('passport')
-const https = require('https')
-const http = express()
-
-http.get('*', function (req, res) {
-  res.redirect('https://' + req.headers.host + req.url)
-})
 
 const app = express()
 
@@ -35,11 +28,6 @@ app.use('/api/auth', require('./routes/auth.routes'))
 app.use('/api/getpost', require('./routes/getpost.routes'))
 app.use('/api/ruffle', require('./routes/ruffle.routes'))
 
-const options = {
-  key: fs.readFileSync('ssl-sertificate/key.pem'),
-  cert: fs.readFileSync('ssl-sertificate/cert.pem'),
-}
-
 if (process.env.NODE_ENV === 'production') {
   app.use('/', express.static(path.join(__dirname, 'client-vue', 'dist')))
 
@@ -48,8 +36,6 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
-const server = https.createServer(options, app)
-
 async function start() {
   try {
     await mongoose.connect(config.get('mongoUri'), {
@@ -57,8 +43,7 @@ async function start() {
       useUnifiedTopology: true,
       useCreateIndex: true,
     })
-    http.listen(config.get('http_port'), () => console.log(`HTTP has been started on port ${config.get('http_port')}...`));
-    server.listen(config.get('https_port'), () => console.log(`HTTPS has been started on port ${config.get('https_port')}...`))
+    app.listen(config.get('http_port'), () => console.log(`HTTP has been started on port ${config.get('http_port')}...`));
   } catch (e) {
     console.log('Server Error: ', e.message)
     process.exit(1)
